@@ -32,7 +32,16 @@ const getOneToDo = id => {
   });
 }
 
+const deleteToDo = id => {
+  return new Promise((resolve, reject) => {
+    ToDoModel.findByIdAndDelete(id)
+      .then(results => resolve(results))
+      .catch(e => reject(e));
+  })
+};
+
 module.exports.addToDo = addToDo;
 module.exports.getAllToDos = getAllToDos;
 module.exports.editToDo = editToDo;
 module.exports.getOneToDo = getOneToDo;
+module.exports.deleteToDo = deleteToDo;

@@ -1,7 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const db = require('./database')
-const { addToDo, getAllToDos, editToDo, getOneToDo } = require('./database/controllers');
+const { addToDo, getAllToDos, editToDo, getOneToDo, deleteToDo } = require('./database/controllers');
 const app = express();
 app.use(express.json());
 app.use(express.static(__dirname + '/../public'));
@@ -30,8 +30,10 @@ app.post('/todos', (req, res) => {
     .catch(e => res.sendStatus(500));
 });
 
-app.delete('/todos', (req, res) => {
-
+app.delete('/todos/:id', (req, res) => {
+  deleteToDo(req.params.id)
+    .then(results => res.json(results))
+    .catch(e => res.sendStatus(500));
 });
 
 let PORT = process.env.PORT;
