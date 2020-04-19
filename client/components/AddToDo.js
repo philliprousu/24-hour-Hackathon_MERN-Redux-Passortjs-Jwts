@@ -1,16 +1,19 @@
 import React, { useState } from 'react';
-import { connect } from 'react-redux'
-import { ADD_TODO, addToDo } from '../store/actions.js';
+import { connect } from 'react-redux';
+import { useHistory } from 'react-router-dom';
+import { addToDo } from '../store/actions.js';
 
 const AddToDo = ({ addToDo }) => {
+  let history = useHistory();
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
 
   const handleSubmit = e => {
     e.preventDefault();
-    addToDo({ title: title, description: description});
+    addToDo({ title: title, description: description})
+      .then(() => history.push('/'))
+      .catch(() => { })
   }
-
 
   return (
     <div>
