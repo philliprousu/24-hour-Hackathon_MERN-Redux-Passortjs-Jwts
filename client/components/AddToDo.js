@@ -25,12 +25,6 @@ const AddToDo = ({ addToDo }) => {
   )
 }
 
-// const mapStateToProps = (state /*, ownProps*/) => {
-//   return {
-//     counter: state.counter
-//   }
-// }
-
 const mapDispatchToProps = dispatch => {
   return {
     addToDo: toDo => dispatch(addToDo(toDo))
