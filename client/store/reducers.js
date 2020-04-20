@@ -9,7 +9,7 @@ export const toDoReducer = (state = [], action) => {
     case DELETE_TODO:
       return state.filter(obj => obj._id !== action.payload);
     case UPDATE_TODO:
-        return state.map(obj => obj._id === payload._id ? payload : obj)
+        return state.map(obj => obj._id === action.payload._id ? action.payload : obj)
     default:
       return state
   }
