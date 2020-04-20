@@ -1,0 +1,9 @@
+.outerdiv {
+  border: 1px solid black;
+  margin-top: 2vh;
+  margin-bottom: 2vh;
+  padding: 5vh;
+  width: 50vw;
+  display: flex;
+  justify-content: space-around;
+}
