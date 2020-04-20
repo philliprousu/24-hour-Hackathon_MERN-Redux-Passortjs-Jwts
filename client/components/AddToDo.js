@@ -12,7 +12,7 @@ const AddToDo = ({ addToDo }) => {
     e.preventDefault();
     addToDo({ title: title, description: description})
       .then(() => history.push('/'))
-      .catch(() => { })
+      .catch(() => history.push('/'))
   }
 
   return (
