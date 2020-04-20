@@ -1,12 +1,13 @@
 import React from 'react';
 import { connect } from 'react-redux'
 import ToDoItem from './ToDoItem.js';
-import { deleteToDo, DELETE_TODO } from '../store/actions.js';
+import { deleteToDo, updateToDo } from '../store/actions.js';
 
-const AllToDos = ({ todos, deleteToDo }) => (
-  todos.map((todo, i) => <ToDoItem key={i} id={todo._id} title={todo.title} description={todo.description} handleDelete={deleteToDo} />)
-)
-
+const AllToDos = ({ todos, deleteToDo, updateToDo }) => {
+  return (
+    todos.map((todo, i) => <ToDoItem key={i} id={todo._id} title={todo.title} description={todo.description} handleDelete={deleteToDo} updateToDo={updateToDo}/>)
+  )
+}
 
 const mapStateToProps = (state /*, ownProps*/) => {
   return {
@@ -16,6 +17,7 @@ const mapStateToProps = (state /*, ownProps*/) => {
 
 const mapDispatchToProps = dispatch => {
   return {
+    updateToDo: (id, updates) => dispatch(updateToDo(id, updates)),
     deleteToDo: id => dispatch(deleteToDo(id))
   }
 }
