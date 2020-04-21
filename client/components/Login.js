@@ -1,17 +1,27 @@
-import React, { useContext, useState } from 'react';
+import React, { useState } from 'react';
+import { login } from '../store/actions.js';
+import { connect } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 
 
-const Login = () => {
+const Login = ({ login, error }) => {
+  let history = useHistory();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
   const handleSubmit = e => {
+    console.log('login fired')
     e.preventDefault();
-
+    login({ email: email, password: password })
+      .then(result => history.push('/'))
+      .catch(e => {})
   }
 
   return (
       <form onSubmit={e => handleSubmit(e)}>
+        {
+          error && <p style={{color: 'red', fontSize: '1.5rem'}}>{error}</p>
+        }
         <div>
           <label htmlFor="signin-email"><p>Email address:</p></label>
           <input
@@ -31,9 +41,21 @@ const Login = () => {
             required
           />
         </div>
-        <button >Sign In</button>
+        <button>Login</button>
       </form>
   )
 };
 
-export default Login;
+const mapDispatchToProps = dispatch => {
+  return {
+    login: userObj => dispatch(login(userObj))
+  }
+}
+
+const mapStateToProps = (state /*, ownProps*/) => {
+  return {
+    error: state.auth.error
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Login);
