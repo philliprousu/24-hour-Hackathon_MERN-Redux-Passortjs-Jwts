@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 const bcrypt = require('bcrypt-nodejs');
 
 const toDoSchema = new mongoose.Schema({
+  userId: String,
   title: String,
   description: String
 });
