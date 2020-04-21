@@ -15,10 +15,15 @@ const Nav = () => {
       >
         Add ToDo
       </NavLink>
-      <NavLink exact to='/signin'
+      <NavLink exact to='/signup'
         activeClassName={styles.selected}
       >
-        SignIn
+        SignUp
+      </NavLink>
+      <NavLink exact to='/login'
+        activeClassName={styles.selected}
+      >
+        Login
       </NavLink>
     </div>
   )
