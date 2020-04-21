@@ -1,13 +1,11 @@
-import { ADD_TODO, DELETE_TODO, UPDATE_TODO, GETALL_TODO, ERROR, SUCCESS, SIGN_UP, LOGIN, AUTH_ERROR } from './actions.js';
+import { ADD_TODO, DELETE_TODO, UPDATE_TODO, GETALL_TODO, ERROR, AUTH_USER, AUTH_ERROR, SUCCESS } from './actions.js';
 
 const INITIAL_STATE = { auth: '', error: false };
 
 export const authReducer = (state = INITIAL_STATE, action) => {
   console.log(action)
   switch (action.type) {
-    case SIGN_UP:
-      return {...state, auth: action.payload.token, error: null}
-    case LOGIN:
+    case AUTH_USER:
       return {...state, auth: action.payload.token, error: null}
     case AUTH_ERROR:
       return {...state, error: action.payload}
