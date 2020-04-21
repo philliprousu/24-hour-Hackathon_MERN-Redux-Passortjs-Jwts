@@ -4,8 +4,7 @@ export const DELETE_TODO = 'DELETE_TODO';
 export const GETALL_TODO = 'GETALL_TODO';
 export const ERROR = 'ERROR';
 export const SUCCESS = 'SUCCESS';
-export const SIGN_UP = 'SIGN_UP';
-export const LOGIN = 'LOGIN';
+export const AUTH_USER = 'AUTH_USER';
 export const AUTH_ERROR = 'AUTH_ERROR';
 
 export const login = userObj => dispatch => {
@@ -19,16 +18,10 @@ export const login = userObj => dispatch => {
     })
     .then(response => response.json())
     .then(result => {
-      console.log(result, 'login action .then')
       //IF EMAIL IN USE
-      // if (result.error) {
-      //   dispatch({ type: AUTH_ERROR, payload: result.error });
-      //   reject('Email is in use');
-      // } else {
-        dispatch({ type: LOGIN, payload: result });
+        dispatch({ type: AUTH_USER, payload: result });
         localStorage.setItem('token', result.token);
         resolve();
-      //}
     })
     .catch(e => {
       console.log(e, 'login action .catch')
@@ -39,7 +32,6 @@ export const login = userObj => dispatch => {
 }
 
 export const signUp = userObj => dispatch => {
-  console.log(userObj)
   return new Promise((resolve, reject) => {
     fetch('http://localhost:3000/signup', {
       method: 'POST',
@@ -50,24 +42,29 @@ export const signUp = userObj => dispatch => {
     })
     .then(response => response.json())
     .then(result => {
-      console.log(result, 'signUp action .then')
       //IF EMAIL IN USE
       if (result.error) {
         dispatch({ type: AUTH_ERROR, payload: result.error });
         reject('Email is in use');
       } else {
-        console.log(result, 'lllllll;llkkll')
-        dispatch({ type: SIGN_UP, payload: result });
+        dispatch({ type: AUTH_USER, payload: result });
         localStorage.setItem('token', result.token);
         resolve();
       }
     })
     .catch(e => {
-      console.log(e, 'signUp action .catch')
       dispatch({ type: AUTH_ERROR, payload: 'Something went wrong' });
       reject();
     })
   })
+}
+
+export const signOut = () => {
+  localStorage.removeItem('token');
+  return {
+    type: AUTH_USER,
+    payload: { token: '' }
+  };
 }
 
 export const addToDo = todo => (dispatch, getState) => {
