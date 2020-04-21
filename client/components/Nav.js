@@ -4,7 +4,6 @@ import { Link, NavLink } from 'react-router-dom';
 import styles from '../css/nav.css';
 
 const Nav = ({ auth }) => {
-  console.log(auth)
   return (
     <div className={styles.nav}>
       {
@@ -51,12 +50,5 @@ const mapStateToProps = (state /*, ownProps*/) => {
     auth: state.auth.auth
   }
 }
-
-// const mapDispatchToProps = dispatch => {
-//   return {
-//     updateToDo: (id, updates) => dispatch(updateToDo(id, updates)),
-//     deleteToDo: id => dispatch(deleteToDo(id))
-//   }
-// }
 
 export default connect(mapStateToProps)(Nav);
