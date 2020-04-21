@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux'
+import Auth from './Auth.js';
 import ToDoItem from './ToDoItem.js';
 import { deleteToDo, updateToDo } from '../store/actions.js';
 
@@ -22,4 +23,4 @@ const mapDispatchToProps = dispatch => {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(AllToDos);
+export default connect(mapStateToProps, mapDispatchToProps)(Auth(AllToDos));
