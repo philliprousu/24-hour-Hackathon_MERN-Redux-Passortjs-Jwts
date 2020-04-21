@@ -8,9 +8,9 @@ const addToDo = reqBody => {
   })
 }
 
-const getAllToDos = () => {
+const getAllToDos = id => {
   return new Promise((resolve, reject) => {
-    ToDoModel.find()
+    ToDoModel.find({ userId: id})
       .then(results => resolve(results))
       .catch(e => reject(e));
   })
