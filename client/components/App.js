@@ -4,8 +4,9 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { getAllToDos } from '../store/actions';
 import Nav from './Nav.js';
 import AllToDos from './AllToDos';
-import SignIn from './SignIn';
+import SignUp from './SignUp';
 import AddToDo from './AddToDo';
+import Login from './Login';
 import styles from '../css/app.css';
 
 
@@ -28,13 +29,16 @@ class App extends Component {
           <Nav></Nav>
           <Switch>
             <Route exact path='/'>
-                <AllToDos />
+              <AllToDos />
             </Route>`
             <Route exact path='/addtodo'>
               <AddToDo />
             </Route>
-            <Route exact path='/signin'>
-              <SignIn />
+            <Route exact path='/signup'>
+              <SignUp />
+            </Route>
+            <Route exact path='/login'>
+              <Login />
             </Route>
           </Switch>
         </BrowserRouter>
