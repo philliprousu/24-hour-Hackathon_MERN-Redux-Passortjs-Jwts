@@ -1,17 +1,26 @@
-import React, { useContext, useState } from 'react';
+import React, { useState } from 'react';
+import { signUp } from '../store/actions.js';
+import { connect } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 
 
-const SignUp = () => {
+const SignUp = ({ signUp, error }) => {
+  let history = useHistory();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
   const handleSubmit = e => {
     e.preventDefault();
-
+    signUp({ email: email, password: password })
+      .then(result => history.push('/'))
+      .catch(e => {})
   }
 
   return (
       <form onSubmit={e => handleSubmit(e)}>
+        {
+          error && <p style={{color: 'red', fontSize: '1.5rem'}}>{error}</p>
+        }
         <div>
           <label htmlFor="signin-email"><p>Email address:</p></label>
           <input
@@ -31,9 +40,21 @@ const SignUp = () => {
             required
           />
         </div>
-        <button >Sign Up</button>
+        <button>Sign Up</button>
       </form>
   )
 };
 
-export default SignUp;
+const mapDispatchToProps = dispatch => {
+  return {
+    signUp: userObj => dispatch(signUp(userObj))
+  }
+}
+
+const mapStateToProps = (state /*, ownProps*/) => {
+  return {
+    error: state.auth.error
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(SignUp);
