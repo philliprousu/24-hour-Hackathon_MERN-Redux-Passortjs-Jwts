@@ -6,6 +6,7 @@ export const ERROR = 'ERROR';
 export const SUCCESS = 'SUCCESS';
 export const AUTH_USER = 'AUTH_USER';
 export const AUTH_ERROR = 'AUTH_ERROR';
+export const RESET_TODO = 'RESET_TODO';
 
 export const login = userObj => dispatch => {
   return new Promise((resolve, reject) => {
@@ -59,12 +60,10 @@ export const signUp = userObj => dispatch => {
   })
 }
 
-export const signOut = () => {
+export const signOut = () => dispatch => {
   localStorage.removeItem('token');
-  return {
-    type: AUTH_USER,
-    payload: { token: '' }
-  };
+  dispatch({ type: AUTH_USER, payload: { token: '' } });
+  dispatch({ type: RESET_TODO })
 }
 
 export const addToDo = todo => (dispatch, getState) => {
@@ -73,6 +72,7 @@ export const addToDo = todo => (dispatch, getState) => {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
+        'authorization': localStorage.getItem('token')
       },
       body: JSON.stringify(todo),
     })
@@ -90,11 +90,17 @@ export const addToDo = todo => (dispatch, getState) => {
 };
 
 export const getAllToDos = () => (dispatch, getState) => (
-  fetch('http://localhost:3000/todos')
+  fetch('http://localhost:3000/todos', {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      'authorization': localStorage.getItem('token')
+    }
+  })
     .then((response) => response.json())
     .then(results => {
-      dispatch( { type: GETALL_TODO, payload: results } );
       dispatch({ type: SUCCESS });
+      dispatch( { type: GETALL_TODO, payload: results } );
     })
     .catch(e => dispatch({ type: ERROR, payload: "Something Went Wrong" }))
 );
@@ -104,12 +110,13 @@ export const deleteToDo = id => (dispatch, getState) => {
     method: 'DELETE',
     headers: {
       'Content-Type': 'application/json',
+      'authorization': localStorage.getItem('token')
     }
   })
   .then(response => response.json())
   .then(result => {
-    dispatch({ type: DELETE_TODO, payload: id });
     dispatch({ type: SUCCESS });
+    dispatch({ type: DELETE_TODO, payload: id });
   })
   .catch(e => {
     console.log(e)
@@ -122,13 +129,14 @@ export const updateToDo = (id, updates) => (dispatch, getState) => {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json',
+      'authorization': localStorage.getItem('token')
     },
     body: JSON.stringify(updates),
   })
   .then(response => response.json())
   .then(result => {
-    dispatch({ type: UPDATE_TODO, payload: result });
     dispatch({ type: SUCCESS });
+    dispatch({ type: UPDATE_TODO, payload: result });
   })
   .catch(e => {
     console.log(e)
