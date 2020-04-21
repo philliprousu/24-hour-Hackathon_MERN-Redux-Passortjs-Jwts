@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { addToDo } from '../store/actions.js';
+import Auth from './Auth.js';
 
 const AddToDo = ({ addToDo }) => {
   let history = useHistory();
@@ -31,4 +32,4 @@ const mapDispatchToProps = dispatch => {
   }
 }
 
-export default connect(null, mapDispatchToProps)(AddToDo);
+export default connect(null, mapDispatchToProps)(Auth(AddToDo));
