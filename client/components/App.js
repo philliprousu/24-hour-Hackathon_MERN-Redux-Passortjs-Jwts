@@ -7,6 +7,7 @@ import AllToDos from './AllToDos';
 import SignUp from './SignUp';
 import AddToDo from './AddToDo';
 import Login from './Login';
+import SignOut from './SignOut';
 import styles from '../css/app.css';
 
 
@@ -28,18 +29,11 @@ class App extends Component {
         <BrowserRouter>
           <Nav></Nav>
           <Switch>
-            <Route exact path='/'>
-              <AllToDos />
-            </Route>`
-            <Route exact path='/addtodo'>
-              <AddToDo />
-            </Route>
-            <Route exact path='/signup'>
-              <SignUp />
-            </Route>
-            <Route exact path='/login'>
-              <Login />
-            </Route>
+            <Route exact path='/' component={AllToDos} />
+            <Route exact path='/addtodo' component={AddToDo} />
+            <Route exact path='/signup' component={SignUp} />
+            <Route exact path='/login' component={Login} />
+            <Route exact path='/signout' component={SignOut} />
           </Switch>
         </BrowserRouter>
       </div>
