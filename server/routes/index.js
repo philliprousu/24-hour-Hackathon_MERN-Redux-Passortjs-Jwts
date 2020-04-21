@@ -12,31 +12,31 @@ module.exports = app => {
 
   app.post('/signup', signUp);
 
-  app.get('/todos', requireAuth, (req, res) => {
+  app.get('/todos', (req, res) => {
     getAllToDos()
       .then(results => res.json(results))
       .catch(e => res.sendStatus(500))
   });
 
-  app.get('/todos/:id', requireAuth, (req, res) => {
+  app.get('/todos/:id', (req, res) => {
     getOneToDo(req.params.id)
       .then(results => res.json(results))
       .catch(e => res.sendStatus(500))
   });
 
-  app.put('/todos/:id', requireAuth, (req, res) => {
+  app.put('/todos/:id', (req, res) => {
     editToDo(req.params.id, req.body)
       .then(results => res.json(results))
       .catch(e => res.sendStatus(500));
   });
 
-  app.post('/todos', requireAuth, (req, res) => {
+  app.post('/todos', (req, res) => {
     addToDo(req.body)
       .then(results => res.json(results))
       .catch(e => res.sendStatus(500));
   });
 
-  app.delete('/todos/:id', requireAuth, (req, res) => {
+  app.delete('/todos/:id', (req, res) => {
     deleteToDo(req.params.id)
       .then(results => res.json(results))
       .catch(e => res.sendStatus(500));
