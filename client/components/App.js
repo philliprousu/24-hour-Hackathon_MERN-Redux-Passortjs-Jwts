@@ -17,14 +17,22 @@ class App extends Component {
   }
 
   componentDidMount() {
-    this.props.getAllToDos()
+    if (this.props.auth) {
+      this.props.getAllToDos()
+    }
+  }
+
+  componentDidUpdate() {
+    if (this.props.auth) {
+      this.props.getAllToDos()
+    }
   }
 
   render () {
     return (
       <div className={styles.app}>
         {
-          this.props.error && <p style={{color: 'red', fontSize: '3rem'}}>{this.props.error}</p>
+          this.props.error && <p style={{color: 'red', fontSize: '1rem'}}>{this.props.error}</p>
         }
         <BrowserRouter>
           <Nav></Nav>
@@ -49,7 +57,8 @@ const mapDispatchToProps = dispatch => {
 
 const mapStateToProps = (state /*, ownProps*/) => {
   return {
-    error: state.error.error
+    error: state.error.error,
+    auth: state.auth.auth
   }
 }
 
