@@ -1,11 +1,16 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 module.exports = {
   entry: path.join(__dirname, 'client/index.js'),
   plugins: [new HtmlWebpackPlugin({
-    template: './client/template.html'
-  })],
+      template: './client/template.html',
+      hash: true,
+      minify: true
+    }),
+    new CleanWebpackPlugin()
+  ],
   module: {
     rules: [{
       test: /\.jsx?$/,
@@ -37,5 +42,10 @@ module.exports = {
       }
     }
     ]
+  },
+  optimization: {
+    splitChunks: {
+      chunks: 'all'
+    }
   }
 };
